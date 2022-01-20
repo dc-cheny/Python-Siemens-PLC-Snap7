@@ -36,7 +36,7 @@ def write_memory(plc, byte, bit, datatype, value, db_number=999):
 
 
 def main():
-    IP = '192.168.1.10'
+    IP = '192.168.0.1'
     RACK = 0
     SLOT = 1
 
@@ -48,8 +48,23 @@ def main():
 
     # test
     a, b, c = 0, 0, 0
-    readbit = read_memory(plc_client, 2, S7WLBit)
-    print(readbit)
+    
+    for i in range(500):
+        '''
+        if i % 2 == 0:
+            write_memory(plc_client, 0, 1, S7WLBit, True)
+        else:
+            write_memory(plc_client, 0, 1, S7WLBit, False)
+        '''
+        write_memory(plc_client, 10, 0, S7WLWord, a)
+        
+        a += 2
+        read_bowl = read_memory(plc_client, 10, S7WLWord)
+        
+        # readbit = read_memory(plc_client, 0, S7WLBit)
+        # read_real = read_memory(plc_client, 5, S7WLReal)
+        
+        print(read_bowl)
 
 
 if __name__ == '__main__':
